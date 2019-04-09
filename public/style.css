@@ -1,0 +1,8 @@
+body{
+  background-color: hotpink;
+}
+
+.nav-bar >li {
+  display: inline;
+  margin-left: 1em;
+}
