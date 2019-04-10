@@ -1,0 +1,8 @@
+body{
+  background-color: skyblue;
+}
+
+.nav-bar >li {
+  display: inline;
+  margin-left: 1em;
+}
