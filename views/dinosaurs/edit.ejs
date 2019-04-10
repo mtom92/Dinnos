@@ -1,1 +1,9 @@
 <h1>Edit page</h1>
+
+<form  method="post" action="/dinosaurs/<%= dinoIndex %>/?_method=PUT">
+<label for="dino-name">Name</label>
+<input type="text" id="dino-name" name="name" value="<%= myDino.name %>">
+<label for="dino-type">Type</label>
+<input type="text" id="dino-tyoe" name="type" value="<%= myDino.type %>">
+<input type="submit"  value="Edit <%= myDino.name%>">
+</form>

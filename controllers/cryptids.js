@@ -7,8 +7,22 @@ var fs =  require('fs');
 var crypData =  fs.readFileSync('./cryptids.json');
 crypData = JSON.parse(crypData)
 
-//index (/) get
-router.get('/',(req,res) => {res.render('cryptids/index',{ myCryps: crypData })})
+//add a filter function
+router.get('/',(req,res) => {
+  var searchParams = req.query.searchParams
+  var activeCryptids = []
+ crypData.forEach((cryptid,index) =>{
+   activeCryptids.push({cryptid : cryptid, id: index})
+ })
+
+  if(searchParams){
+  activeCryptids = activeCryptids.filter((cryptid)=> {
+     return cryptid.cryptid.name.toLowerCase().includes(searchParams.toLowerCase())
+   })
+  }
+
+  res.render('cryptids/index',{ myCryptids: activeCryptids})
+})
 //new (/new) get
 router.get('/new',(req,res) => {res.render('cryptids/new')})
 //create (/) post
@@ -24,6 +38,8 @@ router.get('/:id',(req,res) => {
 })
 //edit (/edit/:id) get
 router.get('/edit/:id',(req,res) => {res.render('cryptids/edit')})
+
+
 //update (/:id) put
 
 //destroy (/delete/:id) delete

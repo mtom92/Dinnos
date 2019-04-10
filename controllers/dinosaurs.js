@@ -20,12 +20,28 @@ router.post('/',(req,res)=>{
 //show (/:id) get
 router.get('/:id',(req,res) => {
   var dinoIndex = parseInt(req.params.id)
-  res.render('dinosaurs/show',{ myDino: dinoData[dinoIndex]})
+  res.render('dinosaurs/show',{ myDino: dinoData[dinoIndex], dinoIndex: dinoIndex})
 })
 //edit (/edit/:id) get
-router.get('/edit/:id',(req,res) => {res.render('dinosaurs/edit')})
+router.get('/edit/:id',(req,res) => {
+  var dinoIndex = parseInt(req.params.id)
+  res.render('dinosaurs/edit',{myDino: dinoData[dinoIndex], dinoIndex: dinoIndex})
+})
 //update (/:id) put
+router.put('/:id',(req,res)=>{
+  dinoData[req.params.id].name = req.body.name
+  dinoData[req.params.id].type = req.body.type
+  fs.writeFileSync('./dinosaurs.json', JSON.stringify(dinoData))
+  res.redirect(`/dinosaurs/${req.params.id}`)
+})
 
 //destroy (/delete/:id) delete
+router.delete('/:id',(req,res)=>{
+  dinoData.splice(req.params.id,1)
+  fs.writeFileSync('./dinosaurs.json', JSON.stringify(dinoData))
+  res.redirect('/dinosaurs')
+})
+
+
 
 module.exports = router;
